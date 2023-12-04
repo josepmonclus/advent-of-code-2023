@@ -6,13 +6,19 @@
 #     'Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green',
 # ]
 
-with open('data/day02.txt', "r") as archivo:
+with open('src/day02/input.txt', "r") as archivo:
     input = archivo.readlines()
-    
-sum_powers = 0
+
+target = {
+    'red': 12,
+    'green': 13,
+    'blue': 14,
+}
+
+sum_ids = 0
 
 for game in input:
-    min_cubes = {
+    max_cubes = {
         'red': 0,
         'green': 0,
         'blue': 0,
@@ -27,10 +33,11 @@ for game in input:
             n = int(cubes.strip().split(' ')[0])
             color = cubes.strip().split(' ')[1]
             
-            if min_cubes[color] < n:
-                min_cubes[color] = n
-            
-    power = min_cubes['red'] * min_cubes['green'] * min_cubes['blue']    
-    sum_powers = sum_powers + power
+            if max_cubes[color] < n:
+                max_cubes[color] = n
+        
+    if max_cubes['red'] <= target['red'] and max_cubes['green'] <= target['green'] and max_cubes['blue'] <= target['blue']:
+        sum_ids = sum_ids + int(id)
 
-print(sum_powers)
+print(sum_ids)
+    

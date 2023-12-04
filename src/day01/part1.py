@@ -5,7 +5,7 @@
 #     'treb7uchet',
 # ]
 
-with open('data/day01.txt', "r") as archivo:
+with open('src/day01/input.txt', "r") as archivo:
     input = archivo.readlines()
 
 total = 0
