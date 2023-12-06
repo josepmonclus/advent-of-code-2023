@@ -1,18 +1,15 @@
-input = [
-    '467..114..',
-    '...*......',
-    '..35..633.',
-    '......#...',
-    '617*......',
-    '.....+.58.',
-    '..592.....',
-    '......755.',
-    '...$.*....',
-    '.664.598..',
-    '..........',
-    '..960.186.',
-    '.....*....',
-]
+# input = [
+#     '467..114..',
+#     '...*......',
+#     '..35..633.',
+#     '......#...',
+#     '617*......',
+#     '.....+.58.',
+#     '..592.....',
+#     '......755.',
+#     '...$.*....',
+#     '.664.598..',
+# ]
 
 with open('src/day03/input.txt', "r") as file:
     input = [line.strip() for line in file.readlines()]
@@ -113,7 +110,6 @@ for row in range(0, len(input)):
                 gear_parts.append(bot)
             
             if len(gear_parts) > 1:
-                print(gear_parts)
                 prod = 0
                 for part in gear_parts:
                     prod = (prod if prod > 0 else 1) * int(part)
