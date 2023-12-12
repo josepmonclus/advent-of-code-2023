@@ -1,3 +1,26 @@
+def find_equivalent(conversions, item_to_find):
+    item_converted = item_to_find
+    
+    for conversion in conversions:
+        if item_to_find >= conversion[0] and item_to_find < conversion[0] + conversion[2]:
+            item_converted = conversion[1] + (item_to_find - conversion[0])
+            break
+
+    return item_converted
+    
+def find_seed(location):
+    humidity = find_equivalent(humidity_to_location, location)
+    temperature = find_equivalent(temperature_to_humidity, humidity)
+    light = find_equivalent(light_to_temperature, temperature)
+    water = find_equivalent(water_to_light, light)
+    fertilizer = find_equivalent(fertilizer_to_water, water)
+    soil = find_equivalent(soil_to_fertilizer, fertilizer)
+    seed = find_equivalent(seed_to_soil, soil)
+    
+    # print(f'{seed} -> {soil} -> {fertilizer} -> {water} -> {light} -> {temperature} -> {humidity} -> {location}')
+
+    return seed
+
 # with open('src/day05/test.txt', "r") as file:
 #     input = [line.strip() for line in file.readlines()]
 
@@ -80,64 +103,15 @@ light_to_temperature = [list(map(int, subarray))  for subarray in light_to_tempe
 temperature_to_humidity = [list(map(int, subarray))  for subarray in temperature_to_humidity]
 humidity_to_location = [list(map(int, subarray))  for subarray in humidity_to_location]
 
-print(len(seeds) // 2)
-for pair in range(0, len(seeds) // 2):
-    start = seeds[pair * 2]
-    end = start + seeds[pair * 2 + 1]
-    print(f'{pair + 1}: {start} -> {end}')
+found = False
+while not found:
+    min_location += 1
+    seed = find_seed(min_location)
     
-    for seed in range(start, end):
-        # find soil
-        soil = seed
-        for e in seed_to_soil:
-            if seed >= e[1] and seed < e[1] + e[2]:
-                diff = seed - e[1]
-                soil = e[0] + diff
-                break
-        # find fertilizer
-        fertilizer = soil
-        for e in soil_to_fertilizer:
-            if soil >= e[1] and soil < e[1] + e[2]:
-                diff = soil - e[1]
-                fertilizer = e[0] + diff
-                break
-        # find water
-        water = fertilizer
-        for e in fertilizer_to_water:
-            if fertilizer >= e[1] and fertilizer < e[1] + e[2]:
-                diff = fertilizer - e[1]
-                water = e[0] + diff
-                break
-        # find light
-        light = water
-        for e in water_to_light:
-            if water >= e[1] and water < e[1] + e[2]:
-                diff = water - e[1]
-                light = e[0] + diff
-                break
-        # find temperature
-        temperature = light
-        for e in light_to_temperature:
-            if light >= e[1] and light < e[1] + e[2]:
-                diff = light - e[1]
-                temperature = e[0] + diff
-                break
-        # find humidity
-        humidity = temperature
-        for e in temperature_to_humidity:
-            if temperature >= e[1] and temperature < e[1] + e[2]:
-                diff = temperature - e[1]
-                humidity = e[0] + diff
-                break
-        # find location
-        location = humidity
-        for e in humidity_to_location:
-            if humidity >= e[1] and humidity < e[1] + e[2]:
-                diff = humidity - e[1]
-                location = e[0] + diff
-                break
-        min_location = location if min_location == -1 or location < min_location else min_location
-                
-        # print(f'{seed} -> {soil} -> {fertilizer} -> {water} -> {light} -> {temperature} -> {humidity} -> {location}')
-
+    for pair in range(0, len(seeds) // 2):
+        if seed >= seeds[pair * 2] and seed < seeds[pair * 2] + seeds[pair * 2 + 1]:
+            found = True
+            break
+    
 print(min_location)
+
