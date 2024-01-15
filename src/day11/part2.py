@@ -39,11 +39,6 @@ for j in range(len(input[0]) - 1, -1, -1):
     if not galaxies:
         cols_to_expand.append(j)
 
-# for row in expaded_universe:
-#     print(row)
-# print(rows_to_expand)
-# print(cols_to_expand)
-
 # Assign numbers to galaxies and save positions
 galaxy_n = 0
 galaxies_positions = {}
@@ -53,8 +48,6 @@ for i, row in enumerate(expaded_universe):
             galaxy_n += 1
             expaded_universe[i] = expaded_universe[i][:j] + str(galaxy_n) + expaded_universe[i][j+1:]
             galaxies_positions[galaxy_n] = [i, j]
-
-# print(galaxies_positions)
 
 # find pairs
 for a in range(1, galaxy_n + 1):
@@ -76,7 +69,6 @@ for a in range(1, galaxy_n + 1):
                 steps += expand_factor
         
         sum_shortest_paths += steps
-        # print(f'{a}({position_a}) -> {b}({position_b}) => {steps} steps')
 
 
 print(sum_shortest_paths)
